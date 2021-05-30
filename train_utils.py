@@ -115,9 +115,9 @@ class RAModel(nn.Module):
 
         self.linear1 = nn.Sequential(
             nn.Linear(inp_len, neurons),
-            nn.LeakyReLU(0.2),
+            nn.LeakyReLU(),
             nn.Linear(neurons, fft_feat_dim),
-            nn.LeakyReLU(0.2),
+            nn.LeakyReLU(),
         )
 
         for i in range(2, 3):
@@ -163,7 +163,7 @@ def train_model(model, train_loader, val_loader,
                 n_fft=2048, device='cpu'):
     optim = torch.optim.AdamW(model.parameters(), lr=lr)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optim, factor=0.5, mode='min',
-                                                           patience=20, verbose=True)
+                                                           patience=5, verbose=False)
     best_loss = float('inf')
     all_val_loss = []
     fft_feat_dim = (n_fft//2+1)

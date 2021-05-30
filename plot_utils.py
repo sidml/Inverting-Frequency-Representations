@@ -1,5 +1,6 @@
 import librosa
 import librosa.display
+import numpy as np
 import matplotlib.pyplot as plt
 
 def plot_val_loss(all_val_loss):    
@@ -33,7 +34,7 @@ def compare_stft(orig_stft, all_pred_stft):
     plt.title('Angle Comparision')
 
 
-def stft_plotter(stft, time=[2, 3]):
+def stft_plotter(stft, y, sr=22050, time=[2, 3]):
     S = np.abs(stft)
     for t in time:
         fig, ax = plt.subplots(nrows=1, ncols=4, figsize=(18, 4))
